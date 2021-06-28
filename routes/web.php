@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DishesController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +24,4 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\OrderController::class, 'index'])->name('home');
 Route::resource('dish',DishesController::class);
+Route::get('/order',[OrderController::class,'index']);

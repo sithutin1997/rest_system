@@ -15,6 +15,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -35,7 +37,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{Auth::user()->name}}</a>
+          <a href="/home" class="d-block">{{ Auth::user()->name }}</a>
         </div>
       </div>
 
@@ -59,7 +61,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <li class="nav-item menu-open">
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/dish" class="nav-link active">
+                <a href="/dish" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dishes</p>
                 </a>
@@ -75,6 +77,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
+      <a class="btn btn-default" href="{{ route('logout') }}"
+          onclick="event.preventDefault();
+          document.getElementById('logout-form').submit();">
+          {{ __('Logout') }}
+      </a>
+
+      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+          @csrf
+      </form>
     </div>
     <!-- /.sidebar -->
   </aside>
@@ -102,5 +113,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+<script>
+   $(document).ready( function () {
+    $('#dishes').DataTable();
+} );
+</script>
 </body>
 </html>

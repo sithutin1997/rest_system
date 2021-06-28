@@ -30,6 +30,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             <h1 class="m-0">Kitchen Pannel</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
