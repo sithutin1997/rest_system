@@ -20,8 +20,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes([
+    'register' => false,
+    'verify' => false,
+    'reset' => false,
+    'confirm' => false,
+]);
 
-Route::get('/home', [App\Http\Controllers\OrderController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\OrderController::class, 'index'])->name('home');
 Route::resource('dish',DishesController::class);
 Route::get('/order',[OrderController::class,'index']);

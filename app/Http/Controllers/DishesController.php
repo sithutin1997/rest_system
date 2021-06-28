@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DishCreateRequest;
+use App\Models\Category;
 use App\Models\Dish;
 use Illuminate\Http\Request;
 
@@ -27,7 +29,12 @@ class DishesController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        $dishes = Dish::all();
+        return view('kitchen.dish_create',[
+            'dishes' => $dishes,
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -36,9 +43,19 @@ class DishesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DishCreateRequest $request)
     {
-        //
+        $dish = new Dish();
+        $dish->name = $request->name;
+        $dish->category_id = $request->category;
+        
+        $imageName = date('YmdHis').".".request()->dish_image->getClientOriginalExtension();
+        request()->dish_image->move(public_path('images'),$imageName);
+        $dish->image = $imageName;
+
+        $dish->save();
+
+        return redirect('/dish')->with('message','Dish is successfully created');
     }
 
     /**
