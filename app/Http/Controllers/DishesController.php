@@ -75,9 +75,13 @@ class DishesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Dish $dish)
     {
-        //
+        $categories = Category::all();
+        return view('kitchen.dish_edit',[
+            'dish' => $dish,
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -87,9 +91,26 @@ class DishesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Dish $dish)
     {
-        //
+        request()->validate([
+            'name' => 'required',
+            'category' => 'required',
+        ]);
+        $dish->name = $request->name;
+        $dish->category_id = $request->category;
+        
+        if($request->dish_image)
+        {
+            $imageName = date('YmdHis').".".request()->dish_image->getClientOriginalExtension();
+            request()->dish_image->move(public_path('images'),$imageName);
+            $dish->image = $imageName;
+        }
+       
+
+        $dish->save();
+
+        return redirect('/dish')->with('message','Dish is successfully Updated');
     }
 
     /**
@@ -98,8 +119,10 @@ class DishesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Dish $dish)
     {
-        //
+        $dish->delete();
+        return redirect('/dish')->with('message','Successfully Deleted');
+
     }
 }

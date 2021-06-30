@@ -39,6 +39,7 @@
                                 <th>Name</th>
                                 <th>Category Name</th>
                                 <th>Created</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -47,6 +48,16 @@
                             <td>{{$dish->name}}</td>
                             <td>{{$dish->category->name}}</td>
                             <td>{{$dish->created_at}}</td>
+                            <td>
+                              <div class="form-row">
+                                <a style="margin-right: 10px;"href="/dish/{{$dish->id}}/edit" class="btn btn-success h-40">Edit</a>
+                                  <form action="/dish/{{$dish->id}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-danger">Delete</button>
+                                  </form>
+                              </div>
+                            </td>
                         </tr>
                           @endforeach
                         </tbody>
