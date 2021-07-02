@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Database\Seeders\CategorySeeder;
 use Database\Seeders\UserTableSeeder;
 use Database\Seeders\TableTableSeeder;
 
@@ -19,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserTableSeeder::class,
             TableTableSeeder::class,
+            CategorySeeder::class,
         ]);
     }
 }

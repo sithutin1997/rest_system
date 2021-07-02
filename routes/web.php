@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DishesController;
+use App\Http\Controllers\Order_detailController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -16,9 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('order_form');
-});
+Route::get('/', [Order_detailController::class,'index'])->name('order.form');
+Route::post('order_submit',[Order_detailController::class,'submit'])->name('order.submit');
 
 Auth::routes([
     'register' => false,
