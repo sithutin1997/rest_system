@@ -35,6 +35,14 @@
               </ul>
             </div>
             <div class="card-body">
+              @if (session('message'))
+                    <div class="alert alert-success alert-dismissible fade show">
+                      {{ session('message')}}
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                  @endif
               <div class="tab-content" id="custom-tabs-one-tabContent">
                 <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
                   <form action="{{route('order.submit')}}" method="post">
@@ -67,7 +75,21 @@
 
                 </div>
                 <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
-                   Mauris tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra purus ut ligula tempor, et vulputate metus facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas sollicitudin, nisi a luctus interdum, nisl ligula placerat mi, quis posuere purus ligula eu lectus. Donec nunc tellus, elementum sit amet ultricies at, posuere nec nunc. Nunc euismod pellentesque diam. 
+                  
+                  <div class="row">                  
+                    @foreach ($orders as $order) 
+                      <div class="col-sm-3">
+                        <div class="card">
+                          <div class="card-body">
+                            <img src="{{url('/images/'.$dish->image)}}" width="100" height="100"><br>
+                            <label for="">{{$dish->name}}</label><br>
+                            <input type="number" name="item[{{$key}}][qty]" value="0"><br><br>
+                            <input type="hidden" name="item[{{$key}}][dish_id]" value={{$dish->id}}>
+                          </div>
+                        </div>
+                      </div>
+                    @endforeach
+                    </div>
                 </div>
               </div>
             </div>

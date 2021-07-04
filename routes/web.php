@@ -19,6 +19,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [Order_detailController::class,'index'])->name('order.form');
 Route::post('order_submit',[Order_detailController::class,'submit'])->name('order.submit');
+Route::get('/order/{order_detail}/approve',[OrderController::class,'approve'])->name('order.approve');
+Route::get('/order/{order_detail}/cancel',[OrderController::class,'cancel'])->name('order.cancel');
+Route::get('/order/{order_detail}/done',[OrderController::class,'done'])->name('order.done');
+
 
 Auth::routes([
     'register' => false,

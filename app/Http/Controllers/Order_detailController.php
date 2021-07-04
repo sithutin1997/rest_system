@@ -12,12 +12,13 @@ class Order_detailController extends Controller
 {
     public function index()
     {
+        $orders = Order_detail::all();
         $tables = Table::all();
         $dishes = Dish::orderBy('id','desc')->get();
-        //  dd($dishes);
         return view('order_form',[
             'dishes' => $dishes,
             'tables' => $tables,
+            'orders' => $orders,
         ]);
         
     }
@@ -36,7 +37,7 @@ class Order_detailController extends Controller
                 $order_detail = new Order_detail();
                 $order_detail->quantity = $order_det['qty'];
                 $order_detail->dish_id = $order_det['dish_id'];
-                $order_detail->status = 1;
+                $order_detail->status = config('status.order.new');
                 $order_detail->order_id = $order->id;
                 $order_detail->save();
             }
