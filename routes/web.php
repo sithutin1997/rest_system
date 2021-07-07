@@ -22,6 +22,7 @@ Route::post('order_submit',[Order_detailController::class,'submit'])->name('orde
 Route::get('/order/{order_detail}/approve',[OrderController::class,'approve'])->name('order.approve');
 Route::get('/order/{order_detail}/cancel',[OrderController::class,'cancel'])->name('order.cancel');
 Route::get('/order/{order_detail}/done',[OrderController::class,'done'])->name('order.done');
+Route::get('/order/{order_detail}/serve',[OrderController::class,'serve'])->name('order.serve');
 
 
 Auth::routes([
