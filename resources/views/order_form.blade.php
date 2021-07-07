@@ -53,7 +53,9 @@
                         <div class="card">
                           <div class="card-body">
                             <img src="{{url('/images/'.$dish->image)}}" width="100" height="100"><br>
+                            <label for="dish">Dishes : </label>
                             <label for="">{{$dish->name}}</label><br>
+                            <label for="quantity">Quantity : </label>
                             <input type="number" name="item[{{$key}}][qty]" value="0"><br><br>
                             <input type="hidden" name="item[{{$key}}][dish_id]" value={{$dish->id}}>
                           </div>
@@ -63,6 +65,7 @@
                     </div>
                     <div>
                       <div class="form-group">
+                        <label for="table">Table No: </label>
                         <select name="table" id="">
                           @foreach ($tables as $table)
                               <option class="form-control"value="{{$table->id}}">{{$table->table_number}}</option>
@@ -76,20 +79,30 @@
                 </div>
                 <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
                   
-                  <div class="row">                  
-                    @foreach ($orders as $order) 
-                      <div class="col-sm-3">
-                        <div class="card">
-                          <div class="card-body">
-                            <img src="{{url('/images/'.$dish->image)}}" width="100" height="100"><br>
-                            <label for="">{{$dish->name}}</label><br>
-                            <input type="number" name="item[{{$key}}][qty]" value="0"><br><br>
-                            <input type="hidden" name="item[{{$key}}][dish_id]" value={{$dish->id}}>
+                  <table id="dishes" class="display">
+                    <thead>
+                        <tr>
+                            <th>Dishes</th>
+                            <th>Table</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      @foreach ($orders as $order)
+                      <tr>
+                        <td>{{$order->dish->name}}</td>
+                        <td>{{$order->order->table->table_number}}</td>
+                        <td>{{$status[$order->status]}}</td>
+                        <td>
+                          <div class="form-row">
+                            <a style="margin-right: 10px;"href="/order/{{$order->id}}/serve" class="btn btn-secondary h-40">Serve</a>
                           </div>
-                        </div>
-                      </div>
-                    @endforeach
-                    </div>
+                        </td>
+                    </tr>
+                      @endforeach
+                    </tbody>
+                </table>
                 </div>
               </div>
             </div>
@@ -103,5 +116,9 @@
 <!-- AdminLTE App -->
 <script src="/dist/js/adminlte.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
-
+<script>
+  $(document).ready( function () {
+   $('#dishes').DataTable();
+} );
+</script>
 </html>

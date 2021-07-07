@@ -12,13 +12,16 @@ class Order_detailController extends Controller
 {
     public function index()
     {
-        $orders = Order_detail::all();
+        $rawStatus = config('status.order');
+        $status = array_flip($rawStatus);   
+        $orders = Order_detail::where('status',4)->get();
         $tables = Table::all();
         $dishes = Dish::orderBy('id','desc')->get();
         return view('order_form',[
             'dishes' => $dishes,
             'tables' => $tables,
             'orders' => $orders,
+            'status' => $status,
         ]);
         
     }
